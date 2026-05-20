@@ -1,0 +1,5 @@
+{
+  "name": "TriageNotes AI",
+  "description": "AI-powered medical transcription and EHR data extraction for nurses.",
+  "requestFramePermissions": ["microphone"]
+}
