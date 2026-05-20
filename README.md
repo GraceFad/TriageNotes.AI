@@ -16,7 +16,7 @@
 
 <p>
   <a href="https://ai.studio/apps/ad55282e-9145-42c2-9d51-b72195278dbd">View in AI Studio</a> ·
-  <a href="#-getting-started">Getting Started</a> ·
+  <a href="## Getting Started>Getting Started</a> ·
   <a href="#-features">Features</a>
 </p>
 
