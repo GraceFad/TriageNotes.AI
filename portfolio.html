@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TriageNotes.AI — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand: #1D9E75;
+    --brand-mid: #0F6E56;
+    --brand-dark: #085041;
+    --brand-bg: #E1F5EE;
+    --brand-border: #9FE1CB;
+    --ink: #111110;
+    --ink-2: #3a3a38;
+    --ink-3: #767673;
+    --ink-4: #a8a8a6;
+    --paper: #faf9f7;
+    --white: #ffffff;
+    --rule: rgba(0,0,0,0.08);
+    --card-bg: #f5f4f1;
+    --red: #E24B4A;
+    --amber: #BA7517;
+    --amber-bg: #FAEEDA;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink-2);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 56px;
+    background: rgba(250,249,247,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.2px;
+  }
+  .nav-logo em { font-style: italic; color: var(--brand); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--ink-3);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .nav-cta:hover { opacity: 0.8; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 10rem 2.5rem 6rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-mid);
+    background: var(--brand-bg);
+    border: 0.5px solid var(--brand-border);
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--brand);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--brand); }
+
+  .hero-desc {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--ink-3);
+    line-height: 1.65;
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: transparent;
+    color: var(--ink-2);
+    font-size: 14px;
+    font-weight: 400;
+    border: 0.5px solid rgba(0,0,0,0.18);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-secondary:hover { background: var(--card-bg); }
+  .btn-icon { font-size: 16px; }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 0.5px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 3px; }
+  .meta-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); font-family: 'DM Mono', monospace; }
+  .meta-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 5rem 2.5rem; max-width: 900px; margin: 0 auto; }
+  .section-rule { border: none; border-top: 0.5px solid var(--rule); max-width: 900px; margin: 0 auto; }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 2rem;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.25rem;
+  }
+  .section-body {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-3);
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  /* ── PROBLEM / SOLUTION ── */
+  .ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .ps-cell {
+    background: var(--white);
+    padding: 2rem;
+  }
+  .ps-cell-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .ps-cell.problem .ps-cell-label { color: var(--red); }
+  .ps-cell.solution .ps-cell-label { color: var(--brand-mid); }
+  .ps-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .ps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+  .ps-list li span.icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .ps-cell.problem .icon { color: var(--red); }
+  .ps-cell.solution .icon { color: var(--brand); }
+
+  /* ── FEATURES ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .feat-cell {
+    background: var(--white);
+    padding: 1.75rem;
+  }
+  .feat-icon-wrap {
+    width: 38px; height: 38px;
+    background: var(--brand-bg);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 20px;
+    color: var(--brand-mid);
+  }
+  .feat-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .feat-desc { font-size: 13px; font-weight: 300; color: var(--ink-3); line-height: 1.55; }
+
+  /* ── APP DEMO ── */
+  .demo-wrap {
+    margin-top: 2.5rem;
+    border: 0.5px solid var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .demo-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .demo-dot-r { background: #F09595; }
+  .demo-dot-y { background: #FAC775; }
+  .demo-dot-g { background: #97C459; }
+  .demo-url {
+    margin-left: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-4);
+  }
+  .demo-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 340px;
+  }
+  .demo-panel {
+    padding: 1.75rem;
+    border-right: 0.5px solid var(--rule);
+  }
+  .demo-panel:last-child { border-right: none; }
+  .demo-panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 1rem;
+  }
+  .transcript-box {
+    background: var(--card-bg);
+    border: 0.5px solid var(--rule);
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-2);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .blink-cursor {
+    display: inline-block;
+    width: 1.5px; height: 13px;
+    background: var(--brand);
+    vertical-align: middle;
+    margin-left: 1px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .rec-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #E24B4A;
+    color: #fff;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: default;
+  }
+  .rec-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulse 1s ease-in-out infinite; }
+
+  .ehr-field { margin-bottom: 14px; }
+  .ehr-label { font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); margin-bottom: 4px; }
+  .ehr-value { font-size: 13px; color: var(--ink-2); font-weight: 300; line-height: 1.5; }
+  .triage-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .triage-l3 { background: var(--amber-bg); color: var(--amber); }
+  .vitals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+  .vital-chip {
+    background: var(--card-bg);
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+  }
+  .vital-chip .v-val { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .vital-chip .v-lbl { font-size: 10px; color: var(--ink-4); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+  /* ── TECH STACK ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 2.5rem;
+  }
+  .stack-card {
+    background: var(--white);
+    border: 0.5px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .stack-icon { font-size: 22px; color: var(--brand); flex-shrink: 0; margin-top: 1px; }
+  .stack-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .stack-role { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.4; }
+
+  /* ── PIPELINE ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 2.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .pipe-step {
+    flex: 1;
+    min-width: 120px;
+    background: var(--white);
+    border: 0.5px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .pipe-arrow {
+    font-size: 18px;
+    color: var(--ink-4);
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .pipe-step-icon { font-size: 24px; color: var(--brand); margin-bottom: 8px; }
+  .pipe-step-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .pipe-step-desc { font-size: 11px; font-weight: 300; color: var(--ink-3); line-height: 1.45; }
+
+  /* ── ROADMAP ── */
+  .roadmap { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0; }
+  .rm-item {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    padding-bottom: 2rem;
+  }
+  .rm-item:last-child { padding-bottom: 0; }
+  .rm-left { display: flex; flex-direction: column; align-items: center; width: 20px; flex-shrink: 0; }
+  .rm-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--rule);
+    background: var(--card-bg);
+    flex-shrink: 0;
+    margin-top: 3px;
+    z-index: 1;
+  }
+  .rm-dot.done { background: var(--brand); border-color: var(--brand-border); }
+  .rm-dot.active { background: var(--white); border-color: var(--brand); border-width: 2.5px; }
+  .rm-line { width: 1px; flex: 1; background: var(--rule); margin: 4px 0; }
+  .rm-item:last-child .rm-line { display: none; }
+  .rm-phase { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 3px; }
+  .rm-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .rm-desc { font-size: 13px; font-weight: 300; color: var(--ink-3); line-height: 1.55; }
+
+  /* ── COURSE CONTEXT ── */
+  .context-card {
+    background: var(--white);
+    border: 0.5px solid var(--rule);
+    border-radius: 14px;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .context-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 8px; }
+  .context-value { font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.5; }
+  .context-value strong { font-weight: 500; }
+
+  /* ── LINKS ── */
+  .links-section { padding: 5rem 2.5rem; max-width: 900px; margin: 0 auto; }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 2rem;
+  }
+  .link-card {
+    background: var(--white);
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .link-card:hover { border-color: rgba(0,0,0,0.2); }
+  .link-card-icon { font-size: 24px; color: var(--brand); }
+  .link-card-name { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .link-card-desc { font-size: 13px; font-weight: 300; color: var(--ink-3); line-height: 1.5; }
+  .link-card-arrow { font-size: 16px; color: var(--ink-4); margin-top: auto; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--rule);
+    padding: 2rem 2.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-brand {
+    font-family: 'Instrument Serif', serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .footer-brand em { font-style: italic; color: var(--brand); }
+  .footer-copy { font-size: 13px; color: var(--ink-4); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.25rem 4rem; }
+    .section { padding: 3.5rem 1.25rem; }
+    .ps-grid { grid-template-columns: 1fr; }
+    .demo-body { grid-template-columns: 1fr; }
+    .demo-panel { border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .demo-panel:last-child { border-bottom: none; }
+    .context-card { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem 1.25rem; }
+    .links-section { padding: 3rem 1.25rem; }
+    .pipeline { flex-wrap: wrap; }
+    .pipe-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">TriageNotes<em>.AI</em></a>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+  <a href="https://github.com/GraceFad/TriageNotes.AI" class="nav-cta" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    GitHub
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="live-dot"></span>
+    BUSI 7220 · Class Project · Spring 2026
+  </div>
+  <h1>Triage notes,<br><em>at the speed of care.</em></h1>
+  <p class="hero-desc">
+    TriageNotes.AI records nurse-patient encounters and instantly returns structured EHR data, vitals, and ESI triage priority — powered by Google Gemini Flash.
+  </p>
+  <div class="hero-actions">
+    <a href="https://ai.studio/apps/ad55282e-9145-42c2-9d51-b72195278dbd" class="btn-primary" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Live demo
+    </a>
+    <a href="https://github.com/GraceFad/TriageNotes.AI" class="btn-secondary" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      View code
+    </a>
+  </div>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Course</span>
+      <span class="meta-value">BUSI 7220</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Built with</span>
+      <span class="meta-value">Gemini Flash + React</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Platform</span>
+      <span class="meta-value">Google AI Studio</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Year</span>
+      <span class="meta-value">2026</span>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- PROBLEM & SOLUTION -->
+<section class="section" id="problem">
+  <p class="section-tag">01 — Problem &amp; solution</p>
+  <h2 class="section-title">Documentation slows down care.<br>AI can change that.</h2>
+  <p class="section-body">Nurses spend significant time on manual documentation during triage — time that should go to patients. TriageNotes.AI eliminates that friction with a single voice recording.</p>
+  <div class="ps-grid">
+    <div class="ps-cell problem">
+      <p class="ps-cell-label">The problem</p>
+      <ul class="ps-list">
+        <li><span class="icon">✕</span>Manual note-taking is slow and error-prone</li>
+        <li><span class="icon">✕</span>Documentation happens after the encounter, from memory</li>
+        <li><span class="icon">✕</span>Inconsistent triage priority assignment</li>
+        <li><span class="icon">✕</span>Nurses carry documentation burden throughout their shift</li>
+      </ul>
+    </div>
+    <div class="ps-cell solution">
+      <p class="ps-cell-label">The solution</p>
+      <ul class="ps-list">
+        <li><span class="icon">✓</span>One-tap recording captures the encounter live</li>
+        <li><span class="icon">✓</span>Instant structured EHR output on completion</li>
+        <li><span class="icon">✓</span>Automatic ESI Level 1–5 triage classification</li>
+        <li><span class="icon">✓</span>Transcript retained for review and audit</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <p class="section-tag">02 — Key features</p>
+  <h2 class="section-title">Everything the care team needs, in seconds.</h2>
+  <div class="features-grid">
+    <div class="feat-cell">
+      <div class="feat-icon-wrap">🎙️</div>
+      <p class="feat-name">Live audio recording</p>
+      <p class="feat-desc">One-tap recording with a real-time frequency visualizer. Captures the encounter via browser microphone using the Web Audio API.</p>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-icon-wrap">🧠</div>
+      <p class="feat-name">AI transcription</p>
+      <p class="feat-desc">Single Gemini Flash API call simultaneously transcribes audio and extracts structured EHR fields — no two-step pipeline.</p>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-icon-wrap">📋</div>
+      <p class="feat-name">EHR data extraction</p>
+      <p class="feat-desc">Auto-populates chief complaint, HPI, vitals, allergies, medications, past medical history, and recommended action.</p>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-icon-wrap">🚦</div>
+      <p class="feat-name">ESI triage classification</p>
+      <p class="feat-desc">Assigns Emergency Severity Index Level 1–5 based on the encounter, color-coded for immediate clinical clarity.</p>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-icon-wrap">📝</div>
+      <p class="feat-name">Verbatim transcript</p>
+      <p class="feat-desc">Full audio transcript retained alongside the structured note for review, correction, and clinical audit.</p>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-icon-wrap">⚡</div>
+      <p class="feat-name">Structured JSON schema</p>
+      <p class="feat-desc">Gemini responds via strict response schema — consistent, parseable, reliable output every time.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- APP PREVIEW -->
+<section class="section">
+  <p class="section-tag">03 — App preview</p>
+  <h2 class="section-title">From spoken words to structured record.</h2>
+  <div class="demo-wrap">
+    <div class="demo-titlebar">
+      <span class="demo-dot demo-dot-r"></span>
+      <span class="demo-dot demo-dot-y"></span>
+      <span class="demo-dot demo-dot-g"></span>
+      <span class="demo-url">triagenotes.ai — Patient Encounter</span>
+    </div>
+    <div class="demo-body">
+      <div class="demo-panel">
+        <p class="demo-panel-label">Recording session</p>
+        <div class="transcript-box">
+          "Patient is a 34-year-old male presenting with three days of productive cough, low-grade fever of 100.4°F, and mild shortness of breath. No chest pain. History of mild asthma, currently on albuterol PRN…"<span class="blink-cursor"></span>
+        </div>
+        <div class="rec-btn">
+          <span class="rec-dot"></span>
+          Recording — 00:42
+        </div>
+      </div>
+      <div class="demo-panel">
+        <p class="demo-panel-label">AI-generated EHR</p>
+        <div class="ehr-field">
+          <p class="ehr-label">Chief complaint</p>
+          <p class="ehr-value">Productive cough × 3 days, fever, mild dyspnea</p>
+        </div>
+        <div class="ehr-field">
+          <p class="ehr-label">Triage priority</p>
+          <span class="triage-badge triage-l3">⬤ Level 3 — Urgent</span>
+        </div>
+        <div class="ehr-field">
+          <p class="ehr-label">Vitals</p>
+          <div class="vitals-grid">
+            <div class="vital-chip"><p class="v-val">100.4°</p><p class="v-lbl">Temp</p></div>
+            <div class="vital-chip"><p class="v-val">96%</p><p class="v-lbl">SpO₂</p></div>
+            <div class="vital-chip"><p class="v-val">98</p><p class="v-lbl">HR</p></div>
+          </div>
+        </div>
+        <div class="ehr-field">
+          <p class="ehr-label">Recommended action</p>
+          <p class="ehr-value">CXR, CBC, empiric azithromycin. Follow-up 48h.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- TECH STACK -->
+<section class="section" id="stack">
+  <p class="section-tag">04 — Tech stack</p>
+  <h2 class="section-title">Purpose-built with modern tools.</h2>
+  <div class="stack-grid">
+    <div class="stack-card">
+      <span class="stack-icon">⚛️</span>
+      <div>
+        <p class="stack-name">React 19 + TypeScript</p>
+        <p class="stack-role">UI framework and type-safe component layer</p>
+      </div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">✨</span>
+      <div>
+        <p class="stack-name">Gemini Flash</p>
+        <p class="stack-role">Audio transcription and EHR extraction via structured JSON schema</p>
+      </div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">🎙️</span>
+      <div>
+        <p class="stack-name">Web Audio API</p>
+        <p class="stack-role">Real-time microphone capture and frequency visualizer</p>
+      </div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">🎨</span>
+      <div>
+        <p class="stack-name">Tailwind CSS v4</p>
+        <p class="stack-role">Utility-first styling with Vite plugin integration</p>
+      </div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">🎬</span>
+      <div>
+        <p class="stack-name">Motion (Framer)</p>
+        <p class="stack-role">Button and state transition animations</p>
+      </div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">⚡</span>
+      <div>
+        <p class="stack-name">Vite 6</p>
+        <p class="stack-role">Build tool with HMR and env variable management</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline -->
+  <div style="margin-top:3rem;">
+    <p class="section-tag">How it works</p>
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-step-icon">🎙️</div>
+        <p class="pipe-step-name">Record</p>
+        <p class="pipe-step-desc">MediaRecorder captures audio as WebM blob</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-step-icon">📤</div>
+        <p class="pipe-step-name">Encode</p>
+        <p class="pipe-step-desc">Blob converted to base64 inline data</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-step-icon">🧠</div>
+        <p class="pipe-step-name">Gemini Flash</p>
+        <p class="pipe-step-desc">Single API call transcribes and extracts EHR fields</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-step-icon">📋</div>
+        <p class="pipe-step-name">Render</p>
+        <p class="pipe-step-desc">Structured EHR card displayed instantly in UI</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- ROADMAP -->
+<section class="section" id="roadmap">
+  <p class="section-tag">05 — Roadmap</p>
+  <h2 class="section-title">What's been built, what's next.</h2>
+  <div class="roadmap">
+    <div class="rm-item">
+      <div class="rm-left"><div class="rm-dot done"></div><div class="rm-line"></div></div>
+      <div><p class="rm-phase">Phase 1 — Complete</p><p class="rm-title">Audio recording pipeline</p><p class="rm-desc">MediaRecorder integration, real-time frequency visualizer, recording timer, and microphone permission handling.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-left"><div class="rm-dot done"></div><div class="rm-line"></div></div>
+      <div><p class="rm-phase">Phase 2 — Complete</p><p class="rm-title">Gemini transcription + EHR extraction</p><p class="rm-desc">Single-call Gemini Flash integration with strict JSON response schema for consistent, structured EHR output.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-left"><div class="rm-dot done"></div><div class="rm-line"></div></div>
+      <div><p class="rm-phase">Phase 3 — Complete</p><p class="rm-title">ESI triage classification UI</p><p class="rm-desc">Color-coded Level 1–5 triage badge, vitals grid, transcript toggle, and full EHR card display.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-left"><div class="rm-dot active"></div><div class="rm-line"></div></div>
+      <div><p class="rm-phase">Phase 4 — Planned</p><p class="rm-title">PDF export</p><p class="rm-desc">One-click export of the generated EHR note as a printable PDF for handoff and record-keeping.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-left"><div class="rm-dot"></div><div class="rm-line"></div></div>
+      <div><p class="rm-phase">Phase 5 — Future</p><p class="rm-title">FHIR-compatible EHR integration</p><p class="rm-desc">Export structured data to Epic and other common EHR systems via HL7 FHIR standards.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- COURSE CONTEXT -->
+<section class="section">
+  <p class="section-tag">06 — Project context</p>
+  <h2 class="section-title">Built for the real world, inside the classroom.</h2>
+  <div class="context-card">
+    <div>
+      <p class="context-label">Course</p>
+      <p class="context-value"><strong>BUSI 7220</strong><br>Information Technology for Competitive Advantage</p>
+    </div>
+    <div>
+      <p class="context-label">Objective</p>
+      <p class="context-value">Develop AI-driven solutions to real-world business and operational problems using modern information technology.</p>
+    </div>
+    <div>
+      <p class="context-label">Problem addressed</p>
+      <p class="context-value">Reduce documentation burden on nurses during patient triage to improve care speed and clinical accuracy.</p>
+    </div>
+    <div>
+      <p class="context-label">Outcome</p>
+      <p class="context-value">A fully functional, deployed web app integrating voice AI and LLMs into a real clinical workflow.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule" />
+
+<!-- LINKS -->
+<section class="links-section">
+  <p class="section-tag">07 — Links</p>
+  <h2 class="section-title">Explore the project.</h2>
+  <div class="links-grid">
+    <a href="https://github.com/GraceFad/TriageNotes.AI" class="link-card" target="_blank">
+      <span class="link-card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </span>
+      <p class="link-card-name">GitHub Repository</p>
+      <p class="link-card-desc">Source code, README, and full project documentation.</p>
+      <span class="link-card-arrow">↗</span>
+    </a>
+    <a href="https://ai.studio/apps/ad55282e-9145-42c2-9d51-b72195278dbd" class="link-card" target="_blank">
+      <span class="link-card-icon">▶</span>
+      <p class="link-card-name">Live Demo</p>
+      <p class="link-card-desc">Try the app live in Google AI Studio. Microphone access required.</p>
+      <span class="link-card-arrow">↗</span>
+    </a>
+    <a href="https://tigermailauburn-my.sharepoint.com/:p:/g/personal/cao0057_auburn_edu/IQDl58hUCly6Q5JkN1FzmwPzAd2Yx_xPC6StweI0iRfKq1g?e=XpaEVB" class="link-card">
+      <span class="link-card-icon">📊</span>
+      <p class="link-card-name">Slide Deck</p>
+      <p class="link-card-desc">Class presentation covering the problem, approach, and demo.</p>
+      <span class="link-card-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">TriageNotes<em>.AI</em></span>
+  <span class="footer-copy">BUSI 7220 · Spring 2026</span>
+</footer>
+
+</body>
+</html>
